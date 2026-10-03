@@ -181,6 +181,21 @@ pub fn uses_budget_thinking(model: &str) -> bool {
         || m == "claude-sonnet-4"
 }
 
+/// Claude 5 rejects `thinking.type: "disabled"`. Omit the field.
+fn rejects_disabled_thinking(model: &str) -> bool {
+    let m = model.to_ascii_lowercase();
+    // ponytail: name match. Add a model when Anthropic returns this same 400.
+    m.contains("opus-5") || m.contains("sonnet-5") || m.contains("haiku-5")
+}
+
+pub fn omit_unsupported_disabled_thinking(body: &mut Value) {
+    let drop_it = body.get("model").and_then(Value::as_str).is_some_and(rejects_disabled_thinking)
+        && body.get("thinking").and_then(|t| t.get("type")).and_then(Value::as_str) == Some("disabled");
+    if drop_it && let Some(o) = body.as_object_mut() {
+        o.remove("thinking");
+    }
+}
+
 pub fn default_max_tokens(model: &str) -> u64 {
     let m = model.to_ascii_lowercase();
     if m.contains("claude-3") {
@@ -343,6 +358,8 @@ pub fn build_request(req: &Request, model: &str) -> Value {
         oc["format"] = json!({ "type": "json_schema", "schema": schema });
     }
     o.insert("stream".into(), true.into());
+    drop(o);
+    omit_unsupported_disabled_thinking(&mut out);
     out
 }
 

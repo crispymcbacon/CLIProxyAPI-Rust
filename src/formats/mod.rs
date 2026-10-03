@@ -632,8 +632,10 @@ mod tests {
         assert_eq!(msgs[2]["content"][0]["type"], "tool_result");
         assert_eq!(msgs[2]["content"][0]["tool_use_id"], "call_1");
         assert_eq!(msgs[2]["content"][1]["text"], "thanks");
-        // An unsigned trailing tool_use turn forces thinking off.
-        assert_eq!(out["thinking"]["type"], "disabled");
+        // Claude 5 rejects thinking.type disabled; older models still get it.
+        assert!(out.get("thinking").is_none());
+        let old = claude::build_request(&req, "claude-sonnet-4-5");
+        assert_eq!(old["thinking"]["type"], "disabled");
     }
 
     #[test]
