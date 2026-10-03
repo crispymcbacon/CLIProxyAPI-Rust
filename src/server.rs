@@ -305,6 +305,46 @@ async fn gemini(
     reply(Format::Gemini, proxy::execute(app, call).await, json_array)
 }
 
+/// Mirror the Go catalog's capabilities, including configured aliases and prefixes.
+fn model_reasoning_levels(app: &App, id: &str) -> Vec<String> {
+    use crate::accounts::Only;
+    use std::collections::HashMap;
+    use std::sync::OnceLock;
+
+    // ponytail: fixed Go v8.0.4 snapshot; refresh it when adding new model capabilities.
+    static CATALOG: OnceLock<HashMap<String, Vec<String>>> = OnceLock::new();
+    let catalog = CATALOG.get_or_init(|| {
+        serde_json::from_str(include_str!("reasoning_models.json")).expect("valid embedded reasoning catalog")
+    });
+    let (only, model) = app.pool.route(id);
+    let force_prefix = app.cfg().force_model_prefix;
+    let mut shared: Option<Vec<String>> = None;
+    for account in app.pool.all() {
+        let allowed = match &only {
+            Some(Only::Provider(p)) => *p == account.provider,
+            Some(Only::Prefix(p)) => account.prefix.as_ref().is_some_and(|x| x.eq_ignore_ascii_case(p)),
+            None => !(force_prefix && account.prefix.is_some()),
+        };
+        if !allowed || account.state.lock().disabled {
+            continue;
+        }
+        let Some(upstream) = account.resolve_with(&model, matches!(only, Some(Only::Provider(_)))) else {
+            continue;
+        };
+        let name = upstream.rsplit('/').next().unwrap_or(&upstream);
+        let levels = catalog
+            .get(&format!("{}/{}", account.provider.as_str(), name))
+            .or_else(|| catalog.get(name))
+            .cloned()
+            .unwrap_or_default();
+        match &mut shared {
+            Some(shared) => shared.retain(|level| levels.contains(level)),
+            None => shared = Some(levels),
+        }
+    }
+    shared.unwrap_or_default()
+}
+
 async fn models(State(app): State<Arc<App>>) -> Response {
     let created = app.started.timestamp();
     let data: Vec<Value> = app
@@ -312,9 +352,12 @@ async fn models(State(app): State<Arc<App>>) -> Response {
         .models()
         .into_iter()
         .map(|(id, provider)| {
+            let levels: Vec<Value> =
+                model_reasoning_levels(&app, &id).into_iter().map(|effort| json!({ "effort": effort })).collect();
             json!({
                 "id": id, "object": "model", "created": created, "owned_by": provider.as_str(),
                 "type": "model", "display_name": id, "created_at": app.started.to_rfc3339(),
+                "supported_reasoning_levels": levels,
             })
         })
         .collect();
@@ -420,4 +463,49 @@ async fn ui_asset(Path(file): Path<String>) -> Response {
         _ => return StatusCode::NOT_FOUND.into_response(),
     };
     ([(header::CONTENT_TYPE, ctype), (header::CACHE_CONTROL, "no-cache")], body).into_response()
+}
+
+#[cfg(test)]
+mod catalog_tests {
+    use super::*;
+    use crate::config::Config;
+
+    #[tokio::test]
+    async fn catalog_advertises_reasoning_for_aliases_without_enabling_unknown_models() {
+        let mut cfg = Config::parse(
+            r#"
+codex-api-key:
+  - api-key: test-only
+    models:
+      - name: gpt-6-luna
+openai-compatibility:
+  - name: test
+    base-url: https://example.invalid/v1
+    api-keys: [test-only]
+    prefix: tenant
+    models:
+      - {name: meta/muse-spark-1.3-contributor, alias: friendly}
+      - {name: gpt-image-2, alias: picture}
+      - {name: unknown-model, alias: mystery}
+"#,
+        )
+        .unwrap();
+        cfg.auth_dir = std::env::temp_dir().join(uuid::Uuid::new_v4().to_string()).to_string_lossy().into();
+        let app = App::new(cfg, std::env::temp_dir().join("unused-catalog-test.yaml"));
+        let response = models(State(app)).await;
+        let bytes = axum::body::to_bytes(response.into_body(), 1 << 20).await.unwrap();
+        let catalog: Value = serde_json::from_slice(&bytes).unwrap();
+        let levels =
+            |id: &str| {
+                catalog["data"].as_array().unwrap().iter().find(|m| m["id"] == id).unwrap()
+                ["supported_reasoning_levels"].as_array().unwrap().iter()
+                .map(|l| l["effort"].as_str().unwrap().to_string()).collect::<Vec<_>>()
+            };
+        for id in ["gpt-6-luna", "friendly", "tenant/friendly"] {
+            assert!(levels(id).contains(&"high".to_string()), "{id}");
+        }
+        for id in ["picture", "tenant/picture", "mystery", "tenant/mystery"] {
+            assert!(levels(id).is_empty(), "{id}");
+        }
+    }
 }

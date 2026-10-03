@@ -1,0 +1,587 @@
+{
+  "claude-fable-5": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "claude-fable-5-1": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "claude-opus-4-6": [
+    "low",
+    "medium",
+    "high",
+    "max"
+  ],
+  "claude-opus-4-7": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "claude-opus-4-8": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "claude-opus-5": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "claude-opus-5-5": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "claude-sonnet-4-6": [
+    "low",
+    "medium",
+    "high",
+    "max"
+  ],
+  "claude-sonnet-5": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "codex-auto-review": [
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+  ],
+  "devin/MODEL_CLAUDE_4_5_OPUS": [
+    "high"
+  ],
+  "devin/MODEL_GOOGLE_GEMINI_3_0_FLASH": [
+    "minimal",
+    "low",
+    "medium",
+    "high"
+  ],
+  "devin/MODEL_GPT_5_2": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+  ],
+  "devin/claude-5-fable": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "devin/claude-fable-5-1": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "devin/claude-opus-4-7": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "devin/claude-opus-4-8": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "devin/claude-opus-5": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "devin/claude-opus-5-5": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "devin/claude-sonnet-5": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "devin/deepseek-v4-1-flash": [
+    "high",
+    "max"
+  ],
+  "devin/deepseek-v4-flash": [
+    "high",
+    "max"
+  ],
+  "devin/deepseek-v4-pro": [
+    "high",
+    "max"
+  ],
+  "devin/gemini-3-1-pro": [
+    "low",
+    "high"
+  ],
+  "devin/gemini-3-5-flash": [
+    "minimal",
+    "low",
+    "medium",
+    "high"
+  ],
+  "devin/gemini-3-6-flash": [
+    "minimal",
+    "low",
+    "medium",
+    "high"
+  ],
+  "devin/gemini-3-7-flash": [
+    "low",
+    "medium",
+    "high"
+  ],
+  "devin/gemini-3-8-flash": [
+    "low",
+    "medium",
+    "high"
+  ],
+  "devin/glm-5-2": [
+    "none",
+    "max"
+  ],
+  "devin/glm-5-2-1m": [
+    "none",
+    "max"
+  ],
+  "devin/glm-5-3": [
+    "low",
+    "high",
+    "max"
+  ],
+  "devin/glm-5-3-flash": [
+    "low",
+    "high",
+    "max"
+  ],
+  "devin/gpt-5-3-codex": [
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+  ],
+  "devin/gpt-5-4": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+  ],
+  "devin/gpt-5-4-mini": [
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+  ],
+  "devin/gpt-5-5": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+  ],
+  "devin/gpt-5-6-luna": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "devin/gpt-5-6-sol": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "devin/gpt-5-6-terra": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "devin/gpt-6-astra": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "devin/gpt-6-luna": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "devin/gpt-6-sol": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "devin/grok-4-5": [
+    "low",
+    "medium",
+    "high"
+  ],
+  "devin/grok-4-6": [
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+  ],
+  "devin/grok-4-7": [
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+  ],
+  "devin/inkling": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "devin/kimi-k3": [
+    "low",
+    "high",
+    "max"
+  ],
+  "devin/nemotron-3-ultra": [
+    "none",
+    "medium",
+    "high"
+  ],
+  "devin/swe-1-7": [
+    "medium"
+  ],
+  "devin/swe-1-7-lightning": [
+    "medium"
+  ],
+  "devin/swe-2": [
+    "medium",
+    "high",
+    "max"
+  ],
+  "gemini-3-flash": [
+    "minimal",
+    "low",
+    "medium",
+    "high"
+  ],
+  "gemini-3-flash-preview": [
+    "minimal",
+    "low",
+    "medium",
+    "high"
+  ],
+  "gemini-3-pro": [
+    "low",
+    "high"
+  ],
+  "gemini-3-pro-image": [
+    "low",
+    "high"
+  ],
+  "gemini-3-pro-image-preview": [
+    "low",
+    "high"
+  ],
+  "gemini-3-pro-preview": [
+    "low",
+    "high"
+  ],
+  "gemini-3.1-flash-image": [
+    "minimal",
+    "high"
+  ],
+  "gemini-3.1-flash-image-preview": [
+    "minimal",
+    "high"
+  ],
+  "gemini-3.1-flash-lite": [
+    "minimal",
+    "low",
+    "medium",
+    "high"
+  ],
+  "gemini-3.1-flash-lite-preview": [
+    "minimal",
+    "high"
+  ],
+  "gemini-3.1-pro": [
+    "low",
+    "medium",
+    "high"
+  ],
+  "gemini-3.1-pro-low": [
+    "low",
+    "medium",
+    "high"
+  ],
+  "gemini-3.1-pro-preview": [
+    "low",
+    "medium",
+    "high"
+  ],
+  "gemini-3.5-flash": [
+    "minimal",
+    "low",
+    "medium",
+    "high"
+  ],
+  "gemini-3.5-flash-lite": [
+    "minimal",
+    "low",
+    "medium",
+    "high"
+  ],
+  "gemini-3.6-flash": [
+    "minimal",
+    "low",
+    "medium",
+    "high"
+  ],
+  "gemini-3.6-flash-high": [
+    "minimal",
+    "low",
+    "medium",
+    "high"
+  ],
+  "gemini-3.7-flash": [
+    "low",
+    "medium",
+    "high"
+  ],
+  "gemini-3.7-flash-high": [
+    "low",
+    "medium",
+    "high"
+  ],
+  "gemini-3.8-flash": [
+    "low",
+    "medium",
+    "high"
+  ],
+  "gemini-3.8-flash-high": [
+    "low",
+    "medium",
+    "high"
+  ],
+  "gemini-pro-agent": [
+    "low",
+    "medium",
+    "high"
+  ],
+  "gpt-5.5": [
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+  ],
+  "gpt-5.6-luna": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "gpt-5.6-sol": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "gpt-5.6-terra": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "gpt-6-astra": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "gpt-6-luna": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "gpt-6-sol": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "grok-3-mini": [
+    "low",
+    "medium",
+    "high"
+  ],
+  "grok-3-mini-fast": [
+    "low",
+    "medium",
+    "high"
+  ],
+  "grok-4.20-multi-agent-0309": [
+    "low",
+    "medium",
+    "high"
+  ],
+  "grok-4.3": [
+    "none",
+    "low",
+    "medium",
+    "high"
+  ],
+  "grok-4.5": [
+    "low",
+    "medium",
+    "high"
+  ],
+  "grok-4.6": [
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+  ],
+  "grok-4.7": [
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+  ],
+  "grok-4.7-build-fast": [
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+  ],
+  "kimi-k2-thinking": [
+    "low",
+    "high"
+  ],
+  "kimi-k2.5": [
+    "low",
+    "high"
+  ],
+  "kimi-k2.6": [
+    "low",
+    "high"
+  ],
+  "kimi-k2.7-code": [
+    "low",
+    "high"
+  ],
+  "kimi-k2.7-code-highspeed": [
+    "low",
+    "high"
+  ],
+  "kimi-k2.8": [
+    "low",
+    "high",
+    "max"
+  ],
+  "kimi-k2.8-code": [
+    "low",
+    "high",
+    "max"
+  ],
+  "kimi-k3": [
+    "low",
+    "high",
+    "max"
+  ],
+  "kimi-k3-256k": [
+    "low",
+    "high",
+    "max"
+  ],
+  "muse-spark-1.1": [
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+  ],
+  "muse-spark-1.2": [
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+  ],
+  "muse-spark-1.2-contributor": [
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+  ],
+  "muse-spark-1.3": [
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ],
+  "muse-spark-1.3-contributor": [
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+  ]
+}

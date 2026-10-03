@@ -6,14 +6,15 @@ WORKDIR /src
 COPY Cargo.toml Cargo.lock ./
 COPY src src
 COPY ui ui
-RUN cargo build --release --locked
+RUN cargo test --release --locked --jobs 1 && cargo build --release --locked --jobs 1
 # CLIProxyAPI's image runs ./CLIProxyAPI from /CLIProxyAPI; keep that path working.
 RUN mkdir -p /out/CLIProxyAPI /out/root/.cli-proxy-api \
  && cp target/release/cliproxyapi-rust /out/cliproxyapi-rust \
  && ln -s /usr/local/bin/cliproxyapi-rust /out/CLIProxyAPI/CLIProxyAPI
 
 FROM gcr.io/distroless/cc-debian12
-LABEL org.opencontainers.image.source="https://github.com/IuCC123/CLIProxyAPI-Rust" \
+LABEL org.opencontainers.image.version="0.3.2-thinking.1" \
+      org.opencontainers.image.source="https://github.com/IuCC123/CLIProxyAPI-Rust" \
       org.opencontainers.image.description="All your AI subscriptions as one fast API. Drop-in for CLIProxyAPI." \
       org.opencontainers.image.licenses="Unlicense"
 COPY --from=build /out/cliproxyapi-rust /usr/local/bin/cliproxyapi-rust
