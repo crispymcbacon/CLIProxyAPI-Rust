@@ -359,6 +359,9 @@ pub fn build_request(req: &Request, model: &str) -> Value {
     }
     o.insert("stream".into(), true.into());
     drop(o);
+    // Translated clients never send Anthropic breakpoints. Top-level ephemeral
+    // caches the whole prefix; cloak then skips its sub-minimum system marker.
+    out["cache_control"] = json!({ "type": "ephemeral" });
     omit_unsupported_disabled_thinking(&mut out);
     out
 }
@@ -741,4 +744,25 @@ pub fn render_full(agg: &Aggregate, model: &str) -> Value {
             "cache_creation_input_tokens": agg.usage.cache_write
         }
     })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::ir::{Message, Part, Request, Role};
+    use serde_json::json;
+
+    #[test]
+    fn build_request_asks_for_prompt_caching() {
+        let req = Request {
+            system: vec!["long stable instructions".into()],
+            messages: vec![Message {
+                role: Role::User,
+                parts: vec![Part::Text("hello".into())],
+            }],
+            ..Default::default()
+        };
+        let out = build_request(&req, "claude-sonnet-5-5");
+        assert_eq!(out["cache_control"], json!({ "type": "ephemeral" }));
+    }
 }
